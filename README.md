@@ -42,3 +42,8 @@ VehicleStar provides two playback systems:
 
 ### 3. Exporting
 Use the **Export** button to export the recording as `.xml` and `.yvr` files. The files will be saved in the directory specified in `config.xml`, located inside the **scripts** folder.
+
+## Credits
+
+- **CodeWalker** – Used for exporting to a vehicle path file.
+  Official page: [CodeWalker GTA V Interactive 3D Map](https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map)  
