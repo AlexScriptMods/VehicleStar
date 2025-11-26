@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36221.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleStar", "VehicleStar\VehicleStar.csproj", "{A39323C6-B79A-4F46-835E-EA4D26C64D78}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A39323C6-B79A-4F46-835E-EA4D26C64D78}.Debug|x64.ActiveCfg = Debug|x64
+		{A39323C6-B79A-4F46-835E-EA4D26C64D78}.Debug|x64.Build.0 = Debug|x64
+		{A39323C6-B79A-4F46-835E-EA4D26C64D78}.Release|x64.ActiveCfg = Release|x64
+		{A39323C6-B79A-4F46-835E-EA4D26C64D78}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3B988A60-4827-4BFA-AB16-5EEF779D3CAB}
+	EndGlobalSection
+EndGlobal
