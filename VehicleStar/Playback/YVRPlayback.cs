@@ -21,7 +21,7 @@ namespace VehicleStar
 
             while (!Function.Call<bool>(Hash.HAS_VEHICLE_RECORDING_BEEN_LOADED, recordingIndex, recordingName))
             {
-                GTA.UI.Screen.ShowSubtitle($"~y~Loading recording {recordingName+"_"+recordingIndex+".yvr"}...~w~");
+                GTA.UI.Screen.ShowSubtitle($"~y~Loading recording ~w~{recordingName+recordingIndex+".yvr"}~y~...~w~");
                 Script.Wait(0);
             }
 

@@ -39,11 +39,10 @@ namespace VehicleStar
 
             exportItem.Activated += (menu, item) =>
             {
-                string outputPathXML = Path.Combine(Main.config.data.OutputDir, $"record_{DateTime.Now:ddHHmmss}.xml");
-                string outputPathYVR = Path.Combine(Main.config.data.OutputDir, $"record_{DateTime.Now:ddHHmmss}.yvr");
+                int index = Utils.GetNewIndex();
+                string outputPathXML = Path.Combine(Main.config.data.OutputDir, $"record{index}.xml");
+                string outputPathYVR = Path.Combine(Main.config.data.OutputDir, $"record{index}.yvr");
                 Main.recorder.Export(outputPathXML, outputPathYVR);
-
-                MessageBox.Show($"Exported succesfully to {Main.config.data.OutputDir}.\nClick Enter to close.", "VehicleStar Information");
             };
 
             yvrItem.Activated += (menu, item) =>

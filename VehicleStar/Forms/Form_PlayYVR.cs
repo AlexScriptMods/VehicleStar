@@ -77,7 +77,7 @@ namespace VehicleStar
 
         private void help(object sender, EventArgs e)
         {
-            MessageBox.Show("YVR File should follow format <name>_index.yvr. \r\n\r\nEXAMPLE:\r\n\r\ntest_1.yvr:\r\n\r\nName: \"test\", Index: 1");
+            MessageBox.Show("YVR File should follow format <name><index>.yvr. \r\n\r\nEXAMPLE:\r\n\r\ntest1.yvr:\r\n\r\nName: \"test\", Index: 1");
         }
 
         private void label1_Click(object sender, EventArgs e)

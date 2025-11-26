@@ -12,7 +12,7 @@ namespace VehicleStar
     public class Export
     {
         List<RecordData> currentRecordings;
-     
+    
 
         public Export(List<RecordData> recordingsSingleVehicle, string outputPathXML, string outputPathYVR)
         {

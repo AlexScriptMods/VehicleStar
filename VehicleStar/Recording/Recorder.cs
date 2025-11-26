@@ -59,6 +59,8 @@ namespace VehicleStar
         {
             Export export = new Export(currentRecordings, XmlPath, YvrPath);
             export.SaveXMLAndYVR(XmlPath, YvrPath);
+
+            GTA.UI.Screen.ShowSubtitle($"~g~Exported successfully to {Main.config.data.OutputDir}~w~");
         }
 
         public List<RecordData> GetRecordingsData()
