@@ -14,6 +14,7 @@ The mod is perfect for creating cinematic scenes and races.
 
 1. Place all files from the mod in your **scripts** folder inside your GTAV root.
 2. Download [CodeWalker](https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map), copy and paste `CodeWalker.Core.dll` and `SharpDX.Mathematics.dll` from the downloaded CodeWalker folder into the **scripts** folder.
+3. Download LemonUI and place it into the **scripts** folder.
 
 ## Usage
 
