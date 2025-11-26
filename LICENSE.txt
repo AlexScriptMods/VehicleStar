@@ -1,0 +1,11 @@
+VehicleStar – Copyright (c) 2025 AlexScriptMods
+
+Permission is granted to use, modify, and share this mod under the following conditions:
+
+1. The mod must remain free of charge. You may not sell it or include it in paid compilations.
+2. You must give credit to AlexScriptMods as the original creator and provide a link to the page https://github.com/AlexScriptMods
+3. Any redistributed copies must include a link to the official download page https://github.com/AlexScriptMods/VehicleStar
+4. No Claim of Authorship – You may not claim VehicleStar or any part of it as your own work. 
+5. Any modifications must comply with these same rules.
+
+This license does not allow commercial use without explicit permission from AlexScriptMods
