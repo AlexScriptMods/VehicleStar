@@ -16,11 +16,11 @@ namespace VehicleStar
     {
 
         private static string lastFileName = "";
-        private static int lastFileIndex = 1;
+        private static string lastFileIndex = "001";
         private static bool lastShouldWarpIntoVehicle = true;
 
         public string selectedFileName { get; private set; }
-        public int selectedFileIndex { get; private set; }
+        public string selectedFileIndex { get; private set; }
         public bool isCancelled { get; private set; } = true;
         public bool shouldWarpIntoVehicle { get; private set; } = true;
 
@@ -57,7 +57,7 @@ namespace VehicleStar
         private void submit_click(object sender, EventArgs e)
         {
             selectedFileName = fileName.Text;
-            selectedFileIndex = int.Parse(fileIndex.Text);
+            selectedFileIndex = fileIndex.Text;
             isCancelled = false;
             shouldWarpIntoVehicle = warp.Checked;
 

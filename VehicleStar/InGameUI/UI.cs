@@ -53,7 +53,7 @@ namespace VehicleStar
                 if (!form.isCancelled)
                 {
                     string fileName = form.selectedFileName;
-                    int fileIndex = form.selectedFileIndex;
+                    string fileIndex = form.selectedFileIndex;
 
                     Main.yvrPlayback.PlayRecording(fileIndex, fileName, form.shouldWarpIntoVehicle);
                 }

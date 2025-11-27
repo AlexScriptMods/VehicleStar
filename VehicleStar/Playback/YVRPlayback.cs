@@ -13,27 +13,45 @@ namespace VehicleStar
     {
         private Vehicle playbackVehicle;
 
-        public void PlayRecording(int recordingIndex, string recordingName, bool shouldWarpIntoVehicle)
-        {   
+        public void PlayRecording(string recordingIndex, string recordingName, bool shouldWarpIntoVehicle)
+        {
             Main.mode = AppMode.YVR_PLAYBACK;
 
-            Function.Call(Hash.REQUEST_VEHICLE_RECORDING, recordingIndex, recordingName);
+            string paddedIndex;
 
-            while (!Function.Call<bool>(Hash.HAS_VEHICLE_RECORDING_BEEN_LOADED, recordingIndex, recordingName))
+            //validate index
+            if (!int.TryParse(recordingIndex, out int idx))
             {
-                GTA.UI.Screen.ShowSubtitle($"~y~Loading recording ~w~{recordingName+recordingIndex+".yvr"}~y~...~w~");
-                Script.Wait(0);
+                GTA.UI.Screen.ShowSubtitle("~r~Invalid recording index.~w~");
+                return;
             }
 
-            Vector3 startPos = Function.Call<Vector3>(Hash.GET_POSITION_OF_VEHICLE_RECORDING_AT_TIME, recordingIndex, 0.0f, recordingName);
-            Vector3 startRot = Function.Call<Vector3>(Hash.GET_ROTATION_OF_VEHICLE_RECORDING_AT_TIME, recordingIndex, 0.0f, recordingName);
+            paddedIndex = idx.ToString("000");
+            int index = int.Parse(paddedIndex);
 
-            Function.Call(Hash.SET_ENTITY_COLLISION, playbackVehicle, true, true);
+            Function.Call(Hash.REQUEST_VEHICLE_RECORDING, index, recordingName);
+
+            int timeout = Game.GameTime + 5000; //5sec timeout
+
+            while (!Function.Call<bool>(Hash.HAS_VEHICLE_RECORDING_BEEN_LOADED, index, recordingName))
+            {
+                GTA.UI.Screen.ShowSubtitle($"~y~Loading recording ~w~{recordingName + paddedIndex + ".yvr"}~y~...~w~");
+                Script.Wait(0);
+
+                if(Game.GameTime > timeout)
+                {
+                    GTA.UI.Screen.ShowSubtitle($"~r~Failed to load:~w~ {recordingName + paddedIndex}.yvr~w~");
+                    return;
+                }
+            }
+
+            Vector3 startPos = Function.Call<Vector3>(Hash.GET_POSITION_OF_VEHICLE_RECORDING_AT_TIME, index, 0.0f, recordingName);
+            Vector3 startRot = Function.Call<Vector3>(Hash.GET_ROTATION_OF_VEHICLE_RECORDING_AT_TIME, index, 0.0f, recordingName);
 
             playbackVehicle = World.CreateVehicle(VehicleHash.Cypher, startPos);
-            playbackVehicle.Rotation = startRot;
 
-           
+            Function.Call(Hash.SET_ENTITY_COLLISION, playbackVehicle, true, true);
+            playbackVehicle.Rotation = startRot;
 
             //Warp into vehicle
             if(shouldWarpIntoVehicle)
@@ -42,7 +60,7 @@ namespace VehicleStar
             }
 
             //Start playback
-            Function.Call(Hash.START_PLAYBACK_RECORDED_VEHICLE, playbackVehicle, recordingIndex, recordingName, true);
+            Function.Call(Hash.START_PLAYBACK_RECORDED_VEHICLE, playbackVehicle, index, recordingName, true);
 
             GTA.UI.Screen.ShowSubtitle("~g~Playing recording...~w~");
         }
