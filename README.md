@@ -39,8 +39,9 @@ VehicleStar provides two playback systems:
 
 1. Open OpenIV and navigate to your `mods/update/update.rpf/x64/data/cdimages/carrec.rpf`.  
 2. Enable **Edit Mode**.  
-3. Copy your exported `.yvr` file into this folder.  
-4. Restart the game.
+3. Copy your exported `.yvr` file into this folder.
+4. Make sure that the index is in format `ABC`, exmaples 001, 002, 009
+5. Restart the game.
 
 ### 3. Exporting
 Use the **Export** button to export the recording as `.xml` and `.yvr` files. The files will be saved in the directory specified in `config.xml`, located inside the **scripts** folder.
