@@ -1,4 +1,5 @@
-﻿using GTA.Math;
+﻿using GTA;
+using GTA.Math;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,7 @@ namespace VehicleStar
         public float Gas { get; set; }
         public float Brake { get; set; }
         public bool UseHandbrake { get; set; }
+
+        public int VehicleHash { get; set; }
     }
 }

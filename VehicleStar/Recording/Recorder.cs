@@ -35,7 +35,8 @@ namespace VehicleStar
         steeringRad,
         Function.Call<float>(GTA.Native.Hash.GET_CONTROL_NORMAL, 0, (int)GTA.Control.VehicleAccelerate),
         Function.Call<float>(GTA.Native.Hash.GET_CONTROL_NORMAL, 0, (int)GTA.Control.VehicleBrake),
-        Function.Call<float>(GTA.Native.Hash.GET_CONTROL_NORMAL, 0, (int)GTA.Control.VehicleHandbrake) > 0.5f
+        Function.Call<float>(GTA.Native.Hash.GET_CONTROL_NORMAL, 0, (int)GTA.Control.VehicleHandbrake) > 0.5f,
+        Game.Player.Character.CurrentVehicle.Model.Hash
     );
         }
 
@@ -55,10 +56,9 @@ namespace VehicleStar
             GTA.UI.Screen.ShowSubtitle("~r~ Recording Stopped~w~");
         }
 
-        public void Export(string XmlPath, string YvrPath)
+        public void Export(string XmlPath, string YvrPath, string vehStar)
         {
-            Export export = new Export(currentRecordings, XmlPath, YvrPath);
-            export.SaveXMLAndYVR(XmlPath, YvrPath);
+            Export export = new Export(currentRecordings, XmlPath, YvrPath, vehStar);
 
             GTA.UI.Screen.ShowSubtitle($"~g~Exported successfully to {Main.config.data.OutputDir}~w~");
         }
@@ -77,7 +77,8 @@ namespace VehicleStar
             float steering,
             float gas,
             float brake,
-            bool handbrake)
+            bool handbrake,
+            int vehHash)
         {
             if (Main.mode != AppMode.RECORDING)
             {
@@ -95,7 +96,8 @@ namespace VehicleStar
                 SteeringAngle = steering,
                 Gas = gas,
                 Brake = brake,
-                UseHandbrake = handbrake
+                UseHandbrake = handbrake,
+                VehicleHash = vehHash
             });
         }
         #endregion

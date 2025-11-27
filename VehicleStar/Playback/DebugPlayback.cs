@@ -15,7 +15,7 @@ namespace VehicleStar
         private List<RecordData> currentRecordings = new List<RecordData>();
         private Vehicle playbackVehicle;
 
-        public void PlaybackStartDebug(VehicleHash vehicleModel, List<RecordData> recordings)
+        public void PlaybackStartDebug(string pathToVehStar, List<RecordData> recordings)
         {
             currentRecordings = recordings;
 
@@ -25,7 +25,35 @@ namespace VehicleStar
                 return;
             }
 
-            Vector3 spawnPos = currentRecordings[0].Position + new Vector3(0, 0, 0.0f);
+            Vector3 spawnPos = currentRecordings[0].Position;
+
+            //Spawn vehicle
+
+            //Load vehicle hash from VehStar
+            VehStar loadedVehStar = VehStar.LoadFromFile(pathToVehStar);
+
+            if (loadedVehStar == null)
+            {
+                GTA.UI.Screen.ShowSubtitle("~r~Failed to load VehStar file~w~");
+                return;
+            }
+
+            Model vehicleModel = new Model(loadedVehStar.VehicleHash);
+
+            if (!vehicleModel.IsInCdImage || !vehicleModel.IsValid)
+            {
+                GTA.UI.Screen.ShowSubtitle("~r~Invalid vehicle model~w~");
+                return;
+            }
+
+            vehicleModel.Request(5000);
+
+            if (!vehicleModel.IsLoaded)
+            {
+                GTA.UI.Screen.ShowSubtitle("~r~Failed to load vehicle model~w~");
+                return;
+            }
+
             playbackVehicle = World.CreateVehicle(vehicleModel, spawnPos);
 
             if (!playbackVehicle.Exists())

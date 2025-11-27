@@ -48,7 +48,34 @@ namespace VehicleStar
             Vector3 startPos = Function.Call<Vector3>(Hash.GET_POSITION_OF_VEHICLE_RECORDING_AT_TIME, index, 0.0f, recordingName);
             Vector3 startRot = Function.Call<Vector3>(Hash.GET_ROTATION_OF_VEHICLE_RECORDING_AT_TIME, index, 0.0f, recordingName);
 
-            playbackVehicle = World.CreateVehicle(VehicleHash.Cypher, startPos);
+            //Get vehicle model from VehStar file
+            string vehStarPath = UI.SelectVehStarFile();
+
+            VehStar loadedVehStar = VehStar.LoadFromFile(vehStarPath);
+
+            if (loadedVehStar == null)
+            {
+                GTA.UI.Screen.ShowSubtitle("~r~Failed to load VehStar file~w~");
+                return;
+            }
+
+            Model vehicleModel = new Model(loadedVehStar.VehicleHash);
+
+            if (!vehicleModel.IsInCdImage || !vehicleModel.IsValid)
+            {
+                GTA.UI.Screen.ShowSubtitle("~r~Invalid vehicle model~w~");
+                return;
+            }
+
+            vehicleModel.Request(5000);
+
+            if (!vehicleModel.IsLoaded)
+            {
+                GTA.UI.Screen.ShowSubtitle("~r~Failed to load vehicle model~w~");
+                return;
+            }
+
+            playbackVehicle = World.CreateVehicle(vehicleModel, startPos);
 
             Function.Call(Hash.SET_ENTITY_COLLISION, playbackVehicle, true, true);
             playbackVehicle.Rotation = startRot;

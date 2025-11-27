@@ -4,6 +4,7 @@ using LemonUI.Menus;
 using System;
 using System.IO;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace VehicleStar
 {
@@ -18,7 +19,7 @@ namespace VehicleStar
             var recordItem = new NativeItem("Start");
             var stopItem = new NativeItem("Stop");
             var exportItem = new NativeItem("Export");
-            var debugItem = new NativeItem("DEBUG Playback");
+            var debugItem = new NativeItem("DEBUG Playback (Export before this)");
             var yvrItem = new NativeItem("YVR Playback");
 
             //Callbacks
@@ -34,15 +35,49 @@ namespace VehicleStar
 
             debugItem.Activated += (menu, item) =>
             {
-                Main.debugPlayback.PlaybackStartDebug(VehicleHash.Cypher, Main.recorder.GetRecordingsData());
+                string vehStarPath = SelectVehStarFile();
+                string directory = null;
+                string fileNameWithoutExt = null;
+
+                if (!string.IsNullOrEmpty(vehStarPath))
+                {
+                    directory = Path.GetDirectoryName(vehStarPath);
+                    fileNameWithoutExt = Path.GetFileNameWithoutExtension(vehStarPath);
+                }
+
+                else
+                {
+                    GTA.UI.Screen.ShowSubtitle("~r~No file selected~w~");
+                    return;
+                }
+
+                List<RecordData> recordings = new List<RecordData>();
+                recordings = Import.LoadFromXML(Path.Combine(directory, "internal.xml"));
+
+                Main.debugPlayback.PlaybackStartDebug(vehStarPath, recordings);
             };
 
             exportItem.Activated += (menu, item) =>
             {
-                int index = Utils.GetNewIndex();
-                string outputPathXML = Path.Combine(Main.config.data.OutputDir, $"record{index}.xml");
-                string outputPathYVR = Path.Combine(Main.config.data.OutputDir, $"record{index}.yvr");
-                Main.recorder.Export(outputPathXML, outputPathYVR);
+                string strIndex = Utils.GetNewIndex();
+
+                string outputSubDir = Path.Combine(Main.config.data.OutputDir, strIndex);
+
+                if (Directory.Exists(outputSubDir))
+                {
+                    Directory.Delete(outputSubDir, true);
+                }
+
+                Directory.CreateDirectory(outputSubDir);
+
+                string outputPathXML = Path.Combine(outputSubDir, $"record{strIndex}.xml");
+                string outputPathYVR = Path.Combine(outputSubDir, $"record{strIndex}.yvr");
+                string outputPathVEHSTAR = Path.Combine(outputSubDir, $"record{strIndex}.vehstar");
+
+                Main.recorder.Export(outputPathXML, outputPathYVR, outputPathVEHSTAR);
+
+                Export export = new Export();
+                export.SaveXMLInternal(Path.Combine(outputSubDir, "internal.xml"), Main.recorder.GetRecordingsData());
             };
 
             yvrItem.Activated += (menu, item) =>
@@ -112,5 +147,35 @@ namespace VehicleStar
                 mainMenu.SelectedIndex = selected;
             }
         }
+
+        public static string SelectVehStarFile()
+        {
+            GTA.UI.Screen.ShowSubtitle("~y~Select the .vehstar config file for the recording you wish to play~w~");
+            Script.Wait(10);
+
+            string selectedPath = null;
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                OpenFileDialog ofd = new OpenFileDialog
+                {
+                    Filter = "VehStar Config Files (*.vehstar)|*.vehstar",
+                    Title = "Select your VehStar Config File",
+                    InitialDirectory = Main.config.data.OutputDir,
+                };
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    selectedPath = ofd.FileName;
+                }
+            });
+
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join(); //wait for dialog to close
+
+            return selectedPath;
+        }
+
     }
 }

@@ -74,7 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\ConfigFile.cs" />
-    <Compile Include="Export\Export.cs" />
+    <Compile Include="Config\VehStar.cs" />
+    <Compile Include="Import-Export\Import.cs" />
+    <Compile Include="Import-Export\Export.cs" />
     <Compile Include="Forms\Form_PlayYVR.cs">
       <SubType>Form</SubType>
     </Compile>
