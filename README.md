@@ -3,6 +3,8 @@
 This tool allows you to record, play, and export custom vehicle paths in YVR format.<br>
 The mod is perfect for creating cinematic scenes and races.
 
+[Available on 5MODS](https://www.gta5-mods.com/tools/vehiclestar-vehicle-path-recorder)
+
 ## Features
 
 - Record vehicle movement in real time while driving
