@@ -77,12 +77,8 @@
     <Compile Include="Config\VehStar.cs" />
     <Compile Include="Import-Export\Import.cs" />
     <Compile Include="Import-Export\Export.cs" />
-    <Compile Include="Forms\Form_PlayYVR.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Form_PlayYVR.Designer.cs">
-      <DependentUpon>Form_PlayYVR.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Menus\MenuYVRPlayback.cs" />
+    <Compile Include="Menus\MenuMain.cs" />
     <Compile Include="Playback\YVRPlayback.cs" />
     <Compile Include="Recording\Recorder.cs" />
     <Compile Include="Playback\DebugPlayback.cs" />
@@ -95,11 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Forms\Form_PlayYVR.resx">
-      <DependentUpon>Form_PlayYVR.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

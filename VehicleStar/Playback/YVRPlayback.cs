@@ -38,7 +38,7 @@ namespace VehicleStar
                 GTA.UI.Screen.ShowSubtitle($"~y~Loading recording ~w~{recordingName + paddedIndex + ".yvr"}~y~...~w~");
                 Script.Wait(0);
 
-                if(Game.GameTime > timeout)
+                if (Game.GameTime > timeout)
                 {
                     GTA.UI.Screen.ShowSubtitle($"~r~Failed to load:~w~ {recordingName + paddedIndex}.yvr~w~");
                     return;
@@ -49,7 +49,7 @@ namespace VehicleStar
             Vector3 startRot = Function.Call<Vector3>(Hash.GET_ROTATION_OF_VEHICLE_RECORDING_AT_TIME, index, 0.0f, recordingName);
 
             //Get vehicle model from VehStar file
-            string vehStarPath = UI.SelectVehStarFile();
+            string vehStarPath = Utils.SelectVehStarFile();
 
             VehStar loadedVehStar = VehStar.LoadFromFile(vehStarPath);
 
@@ -81,7 +81,7 @@ namespace VehicleStar
             playbackVehicle.Rotation = startRot;
 
             //Warp into vehicle
-            if(shouldWarpIntoVehicle)
+            if (shouldWarpIntoVehicle)
             {
                 Game.Player.Character.SetIntoVehicle(playbackVehicle, VehicleSeat.Passenger);
             }

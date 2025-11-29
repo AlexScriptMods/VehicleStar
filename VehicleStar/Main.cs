@@ -55,6 +55,11 @@ namespace VehicleStar
                     ui.ToggleMenu();
                 }
             }
+
+            if(e.KeyCode == Keys.Back)
+            {
+                ui.CloseCurrentMenu();
+            }
         }
 
     }

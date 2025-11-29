@@ -1,15 +1,46 @@
-﻿using System;
+﻿using GTA;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace VehicleStar
 {
     public class Utils
     {
+
+        public static string SelectVehStarFile()
+        {
+            GTA.UI.Screen.ShowSubtitle("~y~Select the .vehstar config file for the recording you wish to play~w~");
+            Script.Wait(10);
+
+            string selectedPath = null;
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                OpenFileDialog ofd = new OpenFileDialog
+                {
+                    Filter = "VehStar Config Files (*.vehstar)|*.vehstar",
+                    Title = "Select your VehStar Config File",
+                    InitialDirectory = Main.config.data.OutputDir,
+                };
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    selectedPath = ofd.FileName;
+                }
+            });
+
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join(); //wait for dialog to close
+
+            return selectedPath;
+        }
 
         static public string GetNewIndex()
         {

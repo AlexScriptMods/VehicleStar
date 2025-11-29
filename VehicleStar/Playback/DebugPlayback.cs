@@ -3,6 +3,7 @@ using GTA.Math;
 using GTA.Native;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,30 @@ namespace VehicleStar
         private int frame = 0;
         private List<RecordData> currentRecordings = new List<RecordData>();
         private Vehicle playbackVehicle;
+
+        public void Start()
+        {
+            string vehStarPath = Utils.SelectVehStarFile();
+            string directory = null;
+            string fileNameWithoutExt = null;
+
+            if (!string.IsNullOrEmpty(vehStarPath))
+            {
+                directory = Path.GetDirectoryName(vehStarPath);
+                fileNameWithoutExt = Path.GetFileNameWithoutExtension(vehStarPath);
+            }
+
+            else
+            {
+                GTA.UI.Screen.ShowSubtitle("~r~No file selected~w~");
+                return;
+            }
+
+            List<RecordData> recordings = new List<RecordData>();
+            recordings = Import.LoadFromXML(Path.Combine(directory, "internal.xml"));
+
+            Main.debugPlayback.PlaybackStartDebug(vehStarPath, recordings);
+        }
 
         public void PlaybackStartDebug(string pathToVehStar, List<RecordData> recordings)
         {

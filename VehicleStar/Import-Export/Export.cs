@@ -15,6 +15,29 @@ namespace VehicleStar
 
         public Export() { }
 
+        public static void Run()
+        {
+            string strIndex = Utils.GetNewIndex();
+
+            string outputSubDir = Path.Combine(Main.config.data.OutputDir, strIndex);
+
+            if (Directory.Exists(outputSubDir))
+            {
+                Directory.Delete(outputSubDir, true);
+            }
+
+            Directory.CreateDirectory(outputSubDir);
+
+            string outputPathXML = Path.Combine(outputSubDir, $"record{strIndex}.xml");
+            string outputPathYVR = Path.Combine(outputSubDir, $"record{strIndex}.yvr");
+            string outputPathVEHSTAR = Path.Combine(outputSubDir, $"record{strIndex}.vehstar");
+
+            Main.recorder.Export(outputPathXML, outputPathYVR, outputPathVEHSTAR);
+
+            Export export = new Export();
+            export.SaveXMLInternal(Path.Combine(outputSubDir, "internal.xml"), Main.recorder.GetRecordingsData());
+        }
+
         public Export(List<RecordData> recordingsSingleVehicle, string outputPathXML, string outputPathYVR, string VehStar)
         {
             currentRecordings = recordingsSingleVehicle;
