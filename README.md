@@ -1,6 +1,6 @@
 # VehicleStar [ALPHA]
 
-This tool allows you to record, play, and export custom vehicle paths in YVR format.<br>
+This GTAV mod allows you to record, play, and export custom vehicle paths in YVR format.<br>
 The mod is perfect for creating cinematic scenes and races.
 
 ## Download
